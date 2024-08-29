@@ -1,66 +1,54 @@
+import 'dart:io';
+
 class BankAccount {
   int accountNumber;
   String accountHolder;
-  double balance;
+  double balance=0.0;
 
-  BankAccount(this.accountNumber, this.accountHolder, this.balance);
+  BankAccount(this.accountNumber, this.accountHolder);
 
-void deposit(double amount) {
-  if (amount > 0) {
+  void deposit() {
+    print("Enter amount to deposit:");
+    double? amount = double.parse(stdin.readLineSync()!);
     balance += amount;
-    print('Rs.$amount deposited successfully.');
-  } else {
-    print('Invalid deposit amount.');
+    print("Rs.$amount deposited successfully.");
   }
-}
 
-void withdraw(double amount) {
-  if (amount > 0 && amount <= balance) {
-    balance -= amount;
-    print('Rs.$amount withdrawn successfully.');
-  } else if (amount > balance) {
-    print('Insufficient balance.');
-  } else {
-    print('Invalid withdrawal amount.');
+  void withdraw() {
+    print("Enter amount to withdraw:");
+    double? amount = double.parse(stdin.readLineSync()!);
+    if (amount <= balance) {
+      balance -= amount;
+      print("Rs.$amount withdrawn successfully.");
+    } else {
+      print("Insufficient balance for withdrawal.");
+    }
   }
-}
 
-void getAccountInfo() {
-  print('Account Number: $accountNumber');
-  print('Account Holder: $accountHolder');
-  print('Current Balance: \$${balance.toStringAsFixed(2)}');
-}
+  void getAccountInfo() {
+    print("\nAccount Info:");
+    print("Account Number: $accountNumber");
+    print("Account Holder Name: $accountHolder");
+    print("Current Balance: Rs.$balance");
+  }
 }
 
 
 void main() {
 
-  BankAccount account = BankAccount(123456, 'John Doe', 500.0);
+  print("Hello,Welcome to Banking Application");
+  print("\nEnter your Name");
+  String accountHolder = (stdin.readLineSync()!);
+  print("Create Your Account Number");
+  int accountNumber = int.parse(stdin.readLineSync()!);
 
 
-  account.deposit(200.0);
-  account.withdraw(100.0);
-  account.withdraw(700.0);
+  BankAccount account = BankAccount(accountNumber,accountHolder);
 
+  account.getAccountInfo();
+
+  account.deposit();
+  account.withdraw();
 
   account.getAccountInfo();
 }
-
-
-//Imagine you are building a simple banking application in Dart.
-// Create a class named BankAccount that represents a bank account. The class should have the following properties and methods:
-// = Properties:
-// - accountNumber (int): A unique identifier
-// for the bank account.
-// - accountHolder (String): The name of the
-// account holder.
-// - balance (double): The current balance in
-// the account.
-// => Methods:
-// - deposit(double amount): Adds the
-// specified amount to the account balance.
-// - withdraw (double amount): Subtracts the
-// specified amount from the account balance. Make sure to check if the withdrawal is possible based on the account balance.
-// - getAccountInfo): Displays the account
-// information, including account number, account holder name, and current balance.
-// Create an instance of the BankAccount class, perform some deposit and withdrawal operations, and finally, display the account information
