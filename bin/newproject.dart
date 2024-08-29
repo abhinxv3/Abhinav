@@ -1,6 +1,3 @@
-void main(){
-
+void main (){
 
 }
-
-void function(){}
